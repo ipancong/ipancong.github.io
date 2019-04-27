@@ -137,7 +137,7 @@
     
     <div class="card-image">
         <a href="/2019/04/14/Maven基础知识/" class="image is-7by1">
-            <img class="thumbnail" src="/2019/04/14/路遥的平凡世界/logo.jpg" alt="Maven基础知识">
+            <img class="thumbnail" src="/2019/04/27/Maven基础知识/logo.jpg" alt="Maven基础知识">
         </a>
     </div>
     
@@ -155,7 +155,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    19 分钟 读完 (大约 2792 个字)
+                    19 分钟 读完 (大约 2793 个字)
                 </span>
                 
             </div>
@@ -169,142 +169,16 @@
         <div class="content">
             <h1 id="Maven基础知识"><a href="#Maven基础知识" class="headerlink" title="Maven基础知识"></a>Maven基础知识</h1><p>Maven几乎天天在用，但是从来没有系统学习或者深入研究过。</p>
 <h3 id="1-Maven是什么"><a href="#1-Maven是什么" class="headerlink" title="1. Maven是什么"></a>1. Maven是什么</h3><p>首先呢，Maven是一种服务于Java平台的自动构建工具。所谓构建，简单来说就是以“java源代码”，“html”，“javascript”，“静态资源”等为资料，生产出可以运行的项目的过程。</p>
-<h3 id="2-Maven构建环节"><a href="#2-Maven构建环节" class="headerlink" title="2. Maven构建环节"></a>2. Maven构建环节</h3><h4 id="2-1-清理（clean）"><a href="#2-1-清理（clean）" class="headerlink" title="2.1 清理（clean）"></a>2.1 清理（clean）</h4><p>删除之前编译得到的字节码文件，清理本地项目下的target目录。</p>
-<h4 id="2-2-编译（compile）"><a href="#2-2-编译（compile）" class="headerlink" title="2.2 编译（compile）"></a>2.2 编译（compile）</h4><p>编译项目。</p>
-<h4 id="2-3-测试（test）"><a href="#2-3-测试（test）" class="headerlink" title="2.3 测试（test）"></a>2.3 测试（test）</h4><p>编译项目，执行test目录下的单元测试用例。</p>
-<h4 id="2-4-打包（package）"><a href="#2-4-打包（package）" class="headerlink" title="2.4 打包（package）"></a>2.4 打包（package）</h4><p>完成了项目编译、单元测试、打包功能，但没有把打好的可执行jar包（war包或其它形式的包）布署到本地maven仓库和远程maven私服仓库。</p>
-<p>mvn clean package依次执行了clean、resources、compile、testResources、testCompile、test、jar(打包)等７个阶段。</p>
-<h4 id="2-5-安装（install）"><a href="#2-5-安装（install）" class="headerlink" title="2.5 安装（install）"></a>2.5 安装（install）</h4><p>完成了项目编译、单元测试、打包功能，同时把打好的可执行jar包（war包或其它形式的包）布署到本地maven仓库，但没有布署到远程maven私服仓库。</p>
-<p>mvn clean install依次执行了clean、resources、compile、testResources、testCompile、test、jar(打包)、install等8个阶段。</p>
-<h4 id="2-6-部署（deploy）"><a href="#2-6-部署（deploy）" class="headerlink" title="2.6 部署（deploy）"></a>2.6 部署（deploy）</h4><p>完成了项目编译、单元测试、打包功能，同时把打好的可执行jar包（war包或其它形式的包）布署到本地maven仓库和远程maven私服仓库。</p>
-<p>mvn clean deploy依次执行了clean、resources、compile、testResources、testCompile、test、jar(打包)、install、deploy等９个阶段。</p>
-<h3 id="3-Maven核心概念"><a href="#3-Maven核心概念" class="headerlink" title="3. Maven核心概念"></a>3. Maven核心概念</h3><h4 id="3-1-Maven工程的目录结构"><a href="#3-1-Maven工程的目录结构" class="headerlink" title="3.1 Maven工程的目录结构"></a>3.1 Maven工程的目录结构</h4><p>maven工程目录必须要遵循如下的结构，因为maven在工作工程中必须知道相关文件保存在哪个目录。</p>
-<p><img src="/2019/04/14/Maven基础知识/blog\lovezr\source\_posts\Maven基础知识\1555224663195.png" alt="1555224663195"></p>
-<ol>
-<li>根目录：工程名</li>
-<li>src目录：源码目录</li>
-<li>pom.xml文件：Maven的核心配置文件</li>
-<li>main目录：存放主程序</li>
-<li>test目录：存放测试</li>
-<li>java目录：存放java源代码</li>
-<li>resources目录：存放相关资源文件或者配置文件</li>
-</ol>
-<h4 id="3-2-POM文件"><a href="#3-2-POM文件" class="headerlink" title="3.2 POM文件"></a>3.2 POM文件</h4><p>Project Object Model，maven构建过程中一切相关配置都是在该文件中。</p>
-<h4 id="3-3-坐标"><a href="#3-3-坐标" class="headerlink" title="3.3 坐标"></a>3.3 坐标</h4><p>二维坐标可以表征一个平面中的任意一点，而三维坐标则可以表征空间中的任意一点，maven中就是通过三位坐标来唯一确定一个maven工程：</p>
-<ol>
-<li>groupId：公司或者组织域名倒叙+项目名称</li>
-<li>artifacteId：模块名称</li>
-<li>version：版本号</li>
-</ol>
-<h4 id="3-4-依赖"><a href="#3-4-依赖" class="headerlink" title="3.4 依赖"></a>3.4 依赖</h4><p>从依赖范围来分，主要分为三种:</p>
-<ol>
-<li><p>compile范围依赖</p>
-<p>a. 对主程序有效</p>
-<p>b. 对测试程序有效</p>
-<p>c. 参与打包</p>
-<p>d. 参与部署</p>
-</li>
-<li><p>test范围依赖</p>
-<p>a. 对主程序无效</p>
-<p>b. 对测试程序有效</p>
-<p>c. 不参与打包</p>
-<p>d. 不参与部署</p>
-<p>例如：junit</p>
-</li>
-<li><p>provided范围依赖</p>
-<p>a. 对主程序有效</p>
-<p>b. 对测试程序有效</p>
-<p>c. 不参与打包</p>
-<p>d. 不参与部署</p>
-<p>例如：springboot内置tomcat，servlet-api.jar</p>
-</li>
-</ol>
-<p><img src="/2019/04/14/Maven基础知识/blog\lovezr\source\_posts\Maven基础知识\1555226402665.png" alt="1555226402665"></p>
-<h4 id="3-5-仓库"><a href="#3-5-仓库" class="headerlink" title="3.5 仓库"></a>3.5 仓库</h4><ol>
-<li><p>本地仓库</p>
-<p>settings文件中的配置，存储在本地的仓库。</p>
-</li>
-<li><p>远程仓库</p>
-<p>远程仓库分为三种：</p>
-<p>a. 私服：搭建在局域网中环境中，为公司或者组织内成员的maven工程服务。</p>
-<p>b. 中央仓库：为全世界Maven工程服务。</p>
-<p>c. 中央仓库镜像：分担中央仓库的负载，提升访问速度。</p>
-</li>
-</ol>
-<h4 id="3-6-生命周期"><a href="#3-6-生命周期" class="headerlink" title="3.6 生命周期"></a>3.6 生命周期</h4><p><img src="/2019/04/14/Maven基础知识/blog\lovezr\source\_posts\Maven基础知识\1555226744749.png" alt="1555226744749"></p>
-<ol>
-<li><p>各个构建环境的顺序是上图的由上往下的顺序。</p>
-</li>
-<li><p>生命周期中的各个阶段，无论执行哪个阶段，都是从这个生命周期最初的阶段开始执行。</p>
-</li>
-<li><p>Maven核心程序中定义了抽象的生命周期，各个阶段的具体任务都是由相应的插件来完成的。</p>
-<p>例如：mvn package 会调用 maven-jar-plugin 这个插件进行打包。注意，在直接调用mvn package不一定会重新生产jar包，只有出现以下几种情况maven会认为jar包不是最新的：</p>
-<p> a. jar包不存在（其实就是mvn clean的效果）</p>
-<p> b. 传入比较的文件资源不存在</p>
-<p> c. Resource with unknown modification date found，资源的修改时间未知</p>
-<p> d.Resource with newer modification date found，jar包的最后修改时间比资源的最后修改时间早</p>
-</li>
-</ol>
-<blockquote>
-<p>  理论上来讲不做mvn clean 得到的jar包应该是最新的，除非其他方式修改jar包中的内容而不修改源代码。平时可以用mvn install，而不进行chean节省时间（如果你觉得节省时间多的话），但最保险还是用 mvn clean install 生成最新的jar包，如果不想用mvn clean又想保证jar包最新，建议添加 <code>-Djar.forceCreation</code> 参数。</p>
-</blockquote>
-<h4 id="3-7-依赖"><a href="#3-7-依赖" class="headerlink" title="3.7 依赖"></a>3.7 依赖</h4><ol>
-<li><p>依赖的传递性</p>
-<p>对于compile范围的依赖是具有传递性的，每个工程中不必重复声明。</p>
-</li>
-<li><p>依赖的排除</p>
-<p>对于不需要的jar包，或者不稳定的jar包，可以使用<exclusions>排除。</exclusions></p>
-</li>
-<li><p>依赖的统一管理</p>
-<p>自定义版本号，统一维护。</p>
-</li>
-<li><p>依赖原则</p>
-<p>弄清楚依赖原则，能够解决工程之间的jar包冲突问题。</p>
-<p>(1) 路径最短优先原则</p>
-<p><img src="/2019/04/14/Maven基础知识/blog\lovezr\source\_posts\Maven基础知识\1556331017709.png" alt="1556331017709"></p>
-<p>(2) 路径相同时先声明者优先&lt;dependency顺序&gt;</p>
-<p><img src="/2019/04/14/Maven基础知识/blog\lovezr\source\_posts\Maven基础知识\1556331046020.png" alt="1556331046020"></p>
-</li>
-</ol>
-<h4 id="3-8-继承"><a href="#3-8-继承" class="headerlink" title="3.8 继承"></a>3.8 继承</h4><p>一个工程中通常是包含了很多的模块，那么如何保证各个模块中使用的公共jar包的版本都是统一的呢？</p>
-<p>解决思路是将各个模块共用的jar包的版本控制统一移动到父工程中。</p>
-<p>注意：</p>
-<ol>
-<li>父工程仅仅是为了做统一的版本控制，它的打包方式应该是pom</li>
-<li>子工程中应该要声明父工程的引用</li>
-<li>子工程中不需要配置相关依赖的版本号，只需要声明即可，版本号在父工程中统一配置</li>
-<li>clean install时会首先安装父工程</li>
-</ol>
-<h4 id="3-9-聚合"><a href="#3-9-聚合" class="headerlink" title="3.9 聚合"></a>3.9 聚合</h4><p>一键安装各个模块的工程。</p>
-<h3 id="4-问题定位"><a href="#4-问题定位" class="headerlink" title="4. 问题定位"></a>4. 问题定位</h3><h4 id="4-1-tomcat加载的jar包版本与工程中需要的不匹配"><a href="#4-1-tomcat加载的jar包版本与工程中需要的不匹配" class="headerlink" title="4.1 tomcat加载的jar包版本与工程中需要的不匹配"></a>4.1 tomcat加载的jar包版本与工程中需要的不匹配</h4><blockquote>
-<p>问题场景：operation工程的bsp工程中需要log4j的1.x的jar包，比较凑巧的是我们的镜像是基于fusionstage原生portal的容器来做的，而它的tomcat依赖的jar包中刚好有log4j1.x的包，由于1.x的版本在公司pdm库中已经不推荐使用，所以在打包的时候我们就把该jar包排除了，这样项目既可以正常运行，有能提升开源认证的得分。</p>
-<p>问题产生原因：我在重新做基础镜像的时候，看到fusionstage原生portal容器中的tomcat里面已经采用的是log4j 2.x的版本，而log4j 1.x 和 2.x的差别还挺大，类的导入方式都不一样，因此我们的项目在新的基础镜像上运行的时候会报错，说找不到类。</p>
-</blockquote>
-<p>解决方案一：</p>
-<p>在我们打包的时候不要排除log4j 1.x的依赖，但是这样会影响开源认证，1.x的已经是D版本了。</p>
-<p>解决方案二：</p>
-<p>找到bsp的新版本的依赖，如果新版本刚好也用的是log4j 2.x的话，那么就不会有问题了。</p>
-<h4 id="4-2-starters工程出新包，其他工程引用不到的问题"><a href="#4-2-starters工程出新包，其他工程引用不到的问题" class="headerlink" title="4.2 starters工程出新包，其他工程引用不到的问题"></a>4.2 starters工程出新包，其他工程引用不到的问题</h4><blockquote>
-<p>问题场景：portal打包的执行机有很多台，每次打包时会随机选择一台，当打包starters工程时也是只会在一台机器上打包，这时候当其他组件打包需要依赖starters，而这次打包又没在刚才那台机器上的时候，最新的starters就不会被打进去。</p>
-<p>问题产生原因：编译其他组件时，不会自动取starters最新版本，只会取本地的。</p>
-</blockquote>
-<p> 解决方案一：</p>
-<p>最早的时候在编译starters后，会把最新的starters的jar包拷贝到其他执行机的maven本地仓库中。这种方式当执行机更换时，需要改动，很不方便，而且很累赘。</p>
-<p>解决方案二：</p>
-<p>在编译其他组件之前，都首先编译一下starters，这种方式的缺点时会导致编译时间延长(starters编译大概需要两分钟)，目前在paas-config-center中我还是保留了相关配置。</p>
-<p>解决方案三：</p>
-<p>该方案需要线了解Snapshot版本和Release版本的概念</p>
-<ol>
-<li><strong>Maven</strong>中的仓库分为两种，<strong>Snapshot快照仓库</strong>和<strong>Release发布仓库</strong>。<strong>Snapshot快照仓库</strong>用于保存开发过程中的不稳定版本，<strong>Release正式仓库</strong>则是用来保存稳定的发行版本。将工程的pom中版本号后面加上上<strong>-SNAPSHOT</strong>即是快照版本。</li>
-<li>maven会根据版本号后面是否有-SNAPSHOT来判断是快照版本还是正式版本，deploy时会发布到不同的远程库中。</li>
-<li>使用<strong>快照版本</strong>的模块，在<strong>不更改版本号</strong>的情况下，直接编译打包时，<strong>Maven</strong>会<strong>自动从镜像服务器上下载最新的快照版本</strong>。如果是<strong>正式发布版本</strong>，那么在<strong>mvn deploy</strong>时会自动发布到<strong>正式版本库</strong>中，而使用<strong>正式版本</strong>的模块，在<strong>不更改版本号</strong>的情况下，编译打包时如果本地已经存在该版本的模块则<strong>不会主动去镜像服务器上下载</strong>。</li>
-</ol>
-<p>在开发阶段，可以将公用库的版本设置为快照版本，而被依赖组件则引用快照版本进行开发，在公用库的快照版本更新后，我们也不需要修改<strong>pom.xml</strong>文件提示版本号来下载新的版本，直接<strong>Maven</strong>执行相关编译、打包命令即可重新下载最新的快照库了，从而也方便了我们进行开发。</p>
-<p>虽然，<strong>快照</strong>的情况下，<strong>Maven</strong>在日常工作中会自动获取最新的快照，但是偶尔会不灵（原因不清楚），但是可以在任何<strong>Maven</strong>命令中使用<strong>-U参数</strong>强制<strong>Maven</strong>下载最新的快照构建。命令如下：</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mvn clean package -U</span><br></pre></td></tr></table></figure>
-
         </div>
         
+        
+        <div class="level is-mobile">
+            <div class="level-start">
+                <div class="level-item">
+                <a class="button is-size-7 is-light" href="/2019/04/14/Maven基础知识/#more">阅读更多</a>
+                </div>
+            </div>
+        </div>
         
         
     </div>
@@ -819,7 +693,7 @@
             
             <a href="/2019/04/14/Maven基础知识/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/2019/04/14/路遥的平凡世界/logo.jpg" alt="Maven基础知识">
+                    <img class="thumbnail" src="/2019/04/27/Maven基础知识/logo.jpg" alt="Maven基础知识">
                 </p>
             </a>
             
